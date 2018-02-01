@@ -1,1 +1,20 @@
 <h1>Utils</h1>
+
+<table>
+<tr>
+<td>
+<textarea id="input" oninput="process();"></textarea>
+</td>
+<td>
+<div id="output"></div>
+</td>
+</tr>
+</table>
+
+<script>
+function process() {
+	var text=document.getElementById('input').value;
+	
+	document.getElementById('output').innerHTML = text;
+}
+</script>
