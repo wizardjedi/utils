@@ -37,3 +37,22 @@ Utils.Text.stringToHex=function(s) {
 	
 	return result.join('');
 };
+
+Utils.Text.hexToIntArray=function(hexString) {
+	var upperHexString = hexString.toUpperCase();
+	
+	var result=[];
+	var currentValue=0;
+	for (i=0;i<upperHexString.length;i++) {
+		if (i % 2 == 1) {
+			currentValue |= Utils.Text.HexSymbols.indexOf(upperHexString.charAt(i)); 
+			result.push(currentValue);						
+		} else {
+			currentValue = Utils.Text.HexSymbols.indexOf(upperHexString.charAt(i)) << 4; 
+		}
+	}
+			 
+	return result;	 
+};
+
+// console.log(Utils.Text.hexToIntArray("fd"));
