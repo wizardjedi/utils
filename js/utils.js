@@ -55,4 +55,14 @@ Utils.Text.hexToIntArray=function(hexString) {
 	return result;	 
 };
 
-// console.log(Utils.Text.hexToIntArray("fd"));
+Utils.Text.intArrayToString=function(intArray) {
+	var result=[];
+	
+	for (i=0;i<intArray.length;i++) {
+		result.push(String.fromCharCode(intArray[i]));
+	}
+			 
+	return result.join('');	 
+};
+
+console.log(Utils.Text.intArrayToString([0x31,0x32,0x33]));
