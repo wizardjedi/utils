@@ -137,9 +137,3 @@ console.log("Command ID:" + buf.readInt() +":" + buf.cap());
 console.log("Status:" + buf.readInt() +":" + buf.cap());
 console.log("Sequence number:"+buf.readInt() +":" + buf.cap());
 
-
-
-/*
-Exception: SyntaxError: missing } after property list
-@Scratchpad/4:78
-*/
