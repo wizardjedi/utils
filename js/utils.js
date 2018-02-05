@@ -65,4 +65,81 @@ Utils.Text.intArrayToString=function(intArray) {
 	return result.join('');	 
 };
 
-console.log(Utils.Text.intArrayToString([0x31,0x32,0x33]));
+Utils.Buffer = {};
+
+Utils.Buffer.create = function(intArray) {
+	var buffer = {
+		data: intArray,
+		length: intArray.length,
+		position:0,
+		cap:function() {
+			return this.length - this.position;
+		},
+		readByte:function() {
+			var b = this.data[this.position];
+			this.position++;
+			
+			return b;
+		},
+		readShort:function() {
+		  var res = 0;
+			for (var i=0;i<2;i++) {
+				res = (res << 8) + this.readByte();
+			}
+
+			return res;	
+		},
+		readInt:function() {
+			var res = 0;
+			for (var i=0;i<4;i++) {
+				res = (res << 8) + this.readByte();
+			}
+
+			return res;
+		}
+	};
+	
+	return buffer;
+};
+
+Utils.Bytes = {};
+
+Utils.Bytes.readLong=function(array) {
+	var res = 0;
+	for (var i=0;i<4;i++) {
+		res = (res << 8) + array[i];
+	}
+	
+	return res;
+}
+
+Utils.Smpp = {};
+
+Utils.Smpp.DataTypes = {};
+
+Utils.Smpp.DataTypes.Integer = {
+	read:function(buf) {
+		return buf.readInt();
+	}
+};
+Utils.Smpp.DataTypes.CString = {};
+Utils.Smpp.DataTypes.String = {};
+Utils.Smpp.DataTypes.Integer = {};
+
+var hexDumpStr="0000007500000004000000000000000200010131393438000000313233343536373839000000000000000003000568656C6C6F000500010000070001010006000101000800020000042400000019000100020F000101020E0001010421000101000D000100000F000101000E000101001000020000";
+
+var intArr = Utils.Text.hexToIntArray(hexDumpStr);
+
+var buf = Utils.Buffer.create(intArr);
+
+console.log("Length:" + buf.readInt() +":" + buf.cap());
+console.log("Command ID:" + buf.readInt() +":" + buf.cap());
+console.log("Status:" + buf.readInt() +":" + buf.cap());
+console.log("Sequence number:"+buf.readInt() +":" + buf.cap());
+
+
+
+/*
+Exception: SyntaxError: missing } after property list
+@Scratchpad/4:78
+*/
