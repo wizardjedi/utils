@@ -15,6 +15,8 @@ HexDump.formatHexDump = function(element, hexString) {
 	
 	outputHtml += HexDump.formatOffsetPanel(hexString);
 	outputHtml += HexDump.formatBodyPanel(hexString);
+	
+	outputHtml += "<div class=\"hex-dump-characters-panel\"><span>.</span></div>"
 	//HexDump.formatCharacterPanel();
 	
 	//outputHtml += hexString;
@@ -42,11 +44,12 @@ HexDump.formatBodyPanel = function(hexString) {
 HexDump.formatBodyCell = function(offset, byte) {
 	var classes=[];
 	
-	if (offset % 8 == 0) {
+	if (offset > 0 && offset % 8 == 7 && offset % 16 != 15) {
 		classes.push("group8b");
 	}
 	
-	if (offset > 0 && offset % 64 == 0) {
+	var row = offset >> 4;
+	if (row > 0 && row % 4 == 0) {
 		classes.push("group-row");
 	}
 	
