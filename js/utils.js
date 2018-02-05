@@ -11,7 +11,8 @@ Utils.Text.isPrint=function(val) {
 Utils.Text.HexSymbols = "0123456789ABCDEF";
 Utils.Text.intToHex = function(val) {
 	if (val > 255) {
-		var H = Utils.Text.byteToHex(val >> 8);
+		//var H = Utils.Text.byteToHex(val >> 8);
+		var H = Utils.Text.intToHex(val >> 8);
 		var L = Utils.Text.byteToHex(val & 0xFF);
 				
 		return ""+H+L;
