@@ -32,7 +32,7 @@ Utils.Text.halfByteToHex = function(val) {
 
 Utils.Text.stringToHex=function(s) {
 	var result=[];
-	for (i=0;i<s.length;i++) {
+	for (var i=0;i<s.length;i++) {
 		result.push(Utils.Text.intToHex(s.charCodeAt(i)));
 	}
 	
@@ -44,7 +44,7 @@ Utils.Text.hexToIntArray=function(hexString) {
 	
 	var result=[];
 	var currentValue=0;
-	for (i=0;i<upperHexString.length;i++) {
+	for (var i=0;i<upperHexString.length;i++) {
 		if (i % 2 == 1) {
 			currentValue |= Utils.Text.HexSymbols.indexOf(upperHexString.charAt(i)); 
 			result.push(currentValue);						
@@ -59,7 +59,7 @@ Utils.Text.hexToIntArray=function(hexString) {
 Utils.Text.intArrayToString=function(intArray) {
 	var result=[];
 	
-	for (i=0;i<intArray.length;i++) {
+	for (var i=0;i<intArray.length;i++) {
 		result.push(String.fromCharCode(intArray[i]));
 	}
 			 
@@ -137,4 +137,3 @@ console.log("Length:" + buf.readInt() +":" + buf.cap());
 console.log("Command ID:" + buf.readInt() +":" + buf.cap());
 console.log("Status:" + buf.readInt() +":" + buf.cap());
 console.log("Sequence number:"+buf.readInt() +":" + buf.cap());
-

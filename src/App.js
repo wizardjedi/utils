@@ -1,15 +1,30 @@
 import React, { Component } from 'react';
 import './App.css';
 import {HexDump} from "./HexDump/HexDump";
+import {CalcTextArea} from "./LengthTextArea/CalcTextArea";
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-          <HexDump hexdump="0011223344556688001122334455668800112233445566880011223344556688001122334455668800112233445566880011223344556688001122334455668800112233445566880011223344556688001122334455668800112233445566880011223344556688001122334455668800112233445566880011223344556688" />
-      </div>
-    );
-  }
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            text:""
+        };
+
+        this.onChange = this.onChange.bind(this);
+    }
+    onChange(text) {
+        this.setState({text: text});
+    }
+    render() {
+        return (
+            <div className="App">
+                <HexDump hexdump={this.state.text} />
+
+                <CalcTextArea rows="10" cols="30" onChange={this.onChange} />
+            </div>
+        );
+    }
 }
 
 export default App;

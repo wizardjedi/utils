@@ -1,12 +1,10 @@
+import "utils";
+
 var HexDump = {};
 
 HexDump.cleanup = function(hexString) {
-	var text = hexString.replace(/\s*/gim,"");
-	
-	if (text.length % 2 == 1) {
-		
-	}
-	
+	var text = hexString.replace(/[^0-9a-fA-F]/gim,"");
+
 	return text;
 };
 

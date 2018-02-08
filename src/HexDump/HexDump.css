@@ -1,5 +1,7 @@
 .hex-dump-container {
     min-width: 797px;border: 1px solid red;
+    font-size: 15px;
+    line-height: 16px;
 }
 
 .hex-dump-panel {
@@ -38,6 +40,8 @@
     width: 21px;
     display: inline;
     float:left;
+    margin-left: 2px;
+    margin-right: 2px;
 }
 .hex-dump-characters-panel {
     margin: 5px;
