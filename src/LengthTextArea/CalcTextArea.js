@@ -42,7 +42,7 @@ export class CalcTextArea extends Component {
                         self.props.onChange(hexDump);
                     }
                 },
-                200
+                500
             );
     }
     render() {

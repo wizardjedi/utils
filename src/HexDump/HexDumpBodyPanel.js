@@ -1,9 +1,13 @@
 import React,{Component} from 'react';
 import "./HexDump.css";
 
+import "../color-groups.css";
+
 export class HexDumpBodyPanel extends Component {
     constructor(props) {
         super();
+
+        this.state = {index:0};
     }
     render() {
         var items = [];
@@ -14,13 +18,15 @@ export class HexDumpBodyPanel extends Component {
             items.push({offset:i, text:this.props.hexdump.substr(i,2)});
         }
 
+        var self = this;
+
         return (
             <div className="hex-dump-body-panel">
                 {items
                     .map(
-                        function(el) {
+                        function(el, idx) {
                             return (
-                                <span data-offset={el.offset} key={el.offset}>{el.text}</span>
+                                <span className={"color-group"+(idx % 21)} data-offset={el.offset} key={el.offset}>{el.text}</span>
                             );
                         }
                     )
