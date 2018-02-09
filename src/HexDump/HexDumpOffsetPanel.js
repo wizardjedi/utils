@@ -9,10 +9,22 @@ export class HexDumpOffsetPanel extends Component {
     render() {
         var rows = [];
 
+        var row = this.props.cursorOffset >> 4;
+
         for (var i=0;i<this.props.hexDumpLength;i+=16) {
             var offset = ("000000000000" + i).substr(-12);
 
-            rows[i] = (function(){return (<span data-offset={i} key={i}>{offset}</span>)}());
+            rows[i] = (
+                function(){
+                    return (
+                        <span
+                            className={row == i >> 4 ? "selected" : ""}
+                            data-offset={i}
+                            key={i}
+                        >{offset}</span>
+                    )
+                }()
+            );
         }
 
         return (

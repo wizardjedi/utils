@@ -3,6 +3,8 @@ import './App.css';
 import {HexDump} from "./HexDump/HexDump";
 import {CalcTextArea} from "./LengthTextArea/CalcTextArea";
 
+import Buffer from 'buffer';
+
 class App extends Component {
     constructor(props) {
         super(props);
@@ -18,10 +20,10 @@ class App extends Component {
     }
     render() {
         return (
-            <div className="App">
+            <div className="App">   
                 <HexDump hexdump={this.state.text} />
 
-                <CalcTextArea rows="10" cols="30" onChange={this.onChange} />
+                <CalcTextArea rows="10" cols="50" onChange={this.onChange} />
             </div>
         );
     }

@@ -1,7 +1,7 @@
-var Utils = {};
+const Utils = {};
 Utils.Text = {};
 Utils.Text.isPrint=function(val) {
-	if (val > 0x1f && val != 0x7f) {
+	if (val > 0x20 && val != 0x7f) {
 		return true;
 	} else {
 		return false;
@@ -126,7 +126,7 @@ Utils.Smpp.DataTypes.Integer = {
 Utils.Smpp.DataTypes.CString = {};
 Utils.Smpp.DataTypes.String = {};
 Utils.Smpp.DataTypes.Integer = {};
-
+/*
 var hexDumpStr="0000007500000004000000000000000200010131393438000000313233343536373839000000000000000003000568656C6C6F000500010000070001010006000101000800020000042400000019000100020F000101020E0001010421000101000D000100000F000101000E000101001000020000";
 
 var intArr = Utils.Text.hexToIntArray(hexDumpStr);
@@ -136,4 +136,7 @@ var buf = Utils.Buffer.create(intArr);
 console.log("Length:" + buf.readInt() +":" + buf.cap());
 console.log("Command ID:" + buf.readInt() +":" + buf.cap());
 console.log("Status:" + buf.readInt() +":" + buf.cap());
-console.log("Sequence number:"+buf.readInt() +":" + buf.cap());
+console.log("Sequence number:"+buf.readInt() +":" + buf.cap());*/
+
+
+export {Utils}

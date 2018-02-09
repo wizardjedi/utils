@@ -58,7 +58,7 @@
 .hex-dump-characters-panel span {
 	font-family: monospace;
 	padding:2px;
-	width: 8px;
+	width: 12px !important;
 	display: inline;
 	float:left;
 }

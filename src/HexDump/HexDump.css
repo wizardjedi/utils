@@ -1,5 +1,6 @@
 .hex-dump-container {
-    min-width: 797px;border: 1px solid red;
+    min-width: 797px;
+    /*border: 1px solid red;*/
     font-size: 15px;
     line-height: 16px;
 }
@@ -54,9 +55,14 @@
 .hex-dump-characters-panel span {
     font-family: monospace;
     padding:2px;
-    width: 8px;
+    width: 12px;
     display: inline;
     float:left;
+}
+
+.selected {
+    background-color: #268;
+    color: #fff;
 }
 
 .clearer {
