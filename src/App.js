@@ -20,7 +20,7 @@ class App extends Component {
     }
     render() {
         return (
-            <div className="App">   
+            <div className="App">
                 <HexDump hexdump={this.state.text} />
 
                 <CalcTextArea rows="10" cols="50" onChange={this.onChange} />
