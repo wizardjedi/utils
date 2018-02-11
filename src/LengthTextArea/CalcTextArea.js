@@ -54,7 +54,7 @@ export class CalcTextArea extends Component {
 
         return (
             <div>
-                <textarea rows={this.props.rows} cols={this.props.cols} onChange={this.onChange} onKeyUp={this.onChange}></textarea><br />
+                <textarea rows={this.props.rows} cols={this.props.cols} onChange={this.onChange} onKeyUp={this.onChange}>{this.props.text}</textarea><br />
                 <span>Length: {this.state.textLength}</span>
                 <br />
                 {error}

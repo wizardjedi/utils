@@ -66,6 +66,18 @@ Utils.Text.intArrayToString=function(intArray) {
 	return result.join('');	 
 };
 
+Utils.Text.Hex = {};
+
+Utils.Text.Hex.cleanup = function(hexString) {
+	if (hexString == null) {
+		return "";
+	}
+
+    var text = hexString.replace(/[^0-9a-fA-F]/gim,"");
+
+    return text;
+};
+
 Utils.Buffer = {};
 
 Utils.Buffer.create = function(intArray) {
