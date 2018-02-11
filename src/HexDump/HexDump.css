@@ -61,10 +61,18 @@
 }
 
 .selected {
-    background-color: #268;
+    background-color: #268 !important;
     color: #fff;
 }
 
 .clearer {
     clear: both;
+}
+
+.strip-odd {
+    background-color: #f5f5f5;
+}
+
+.strip-even {
+    background-color: #e5e5e5;
 }

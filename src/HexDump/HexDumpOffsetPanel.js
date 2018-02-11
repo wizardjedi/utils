@@ -11,14 +11,20 @@ export class HexDumpOffsetPanel extends Component {
 
         var row = this.props.cursorOffset != null ? this.props.cursorOffset >> 4 : null;
 
-        for (var i=0;i<this.props.hexDumpLength;i+=16) {
+        var rowCounter = 0;
+        for (var i=0;i<this.props.hexDumpLength;i+=16,rowCounter++) {
             var offset = ("000000000000" + i).substr(-12);
+
+            var classes = [
+                (((i >> 4) % 2 == 0) ? "strip-odd" : "strip-even"),
+                (row != null && row == i >> 4 ? "selected" : ""),
+            ];
 
             rows[i] = (
                 function(){
                     return (
                         <span
-                            className={row != null && row == i >> 4 ? "selected" : ""}
+                            className={classes.join(" ")}
                             data-offset={i}
                             key={i}
                         >{offset}</span>

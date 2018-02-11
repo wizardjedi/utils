@@ -39,6 +39,7 @@ export class HexDumpCharactersPanel extends Component {
                                 <span
                                     onMouseOver={self.onChangeCursorOffset}
                                     className={self.props.cursorOffset==idx ? "selected" : ""}
+                                    key={idx}
                                     data-offset={idx}>{C}</span>
                             );
                         }

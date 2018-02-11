@@ -25,7 +25,9 @@ class App extends Component {
     onChange(text) {
         this.setState({text: text});
 
-        window.location.hash = '#' + text;
+        if (text.length <= 2000) {
+            window.location.hash = '#' + text;
+        }
     }
     render() {
         return (

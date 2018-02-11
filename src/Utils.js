@@ -45,7 +45,7 @@ Utils.Text.hexToIntArray=function(hexString) {
 	var result=[];
 	var currentValue=0;
 	for (var i=0;i<upperHexString.length;i++) {
-		if (i % 2 == 1) {
+		if (i % 2 === 1) {
 			currentValue |= Utils.Text.HexSymbols.indexOf(upperHexString.charAt(i)); 
 			result.push(currentValue);						
 		} else {
