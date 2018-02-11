@@ -78,6 +78,25 @@ Utils.Text.Hex.cleanup = function(hexString) {
     return text;
 };
 
+Utils.Text.Encoding = {};
+
+Utils.Text.Encoding.GSM0338 = {};
+
+Utils.Text.Encoding.GSM0338.basicSet = "@Δ 0¡P¿p£_!1AQaq$Φ\"2BRbr¥Γ#3CScsèΛ¤4DTdtéΩ%5EUeuùΠ&6FVfvìΨ'7GWgwòΣ(8HXhxÇΘ)9IYiy\rΞ*:JZjzØ@+;KÄkäøÆ,<LÖlö\næ-=MÑmñÅß.>NÜnüåÉ/?O§oà";
+Utils.Text.Encoding.GSM0338.extendedSet = "|^€{}[~]\\";
+
+Utils.Text.Encoding.GSM0338.isRepresentable = function(str) {
+	if (str == null || str.length == 0) {
+		return true;
+	}
+
+	if (str.length > 1) {
+		for (var i=0;i<str.length;i++) {
+			var res = Utils.Text.Encoding.GSM0338.isRepresentable(str.charCodeAt());
+		}
+	}
+}
+
 Utils.Buffer = {};
 
 Utils.Buffer.create = function(intArray) {
