@@ -1820,10 +1820,6 @@ although to facilitate local testing, that policy
 If your production web server does not support HTTPS, then the service worker
 registration will fail, but the rest of your web app will remain functional.
 
-1. Service workers are [not currently supported](https://jakearchibald.github.io/isserviceworkerready/)
-in all web browsers. Service worker registration [won't be attempted](src/registerServiceWorker.js)
-on browsers that lack support.
-
 1. The service worker is only enabled in the [production environment](#deployment),
 e.g. the output of `npm run build`. It's recommended that you do not enable an
 offline-first service worker in a development environment, as it can lead to
@@ -1847,18 +1843,6 @@ the previously cached assets from the service worker. If you have an immediate
 need to view your updated production deployment, performing a shift-refresh
 will temporarily disable the service worker and retrieve all assets from the
 network.
-
-1. Users aren't always familiar with offline-first web apps. It can be useful to
-[let the user know](https://developers.google.com/web/fundamentals/instant-and-offline/offline-ux#inform_the_user_when_the_app_is_ready_for_offline_consumption)
-when the service worker has finished populating your caches (showing a "This web
-app works offline!" message) and also let them know when the service worker has
-fetched the latest updates that will be available the next time they load the
-page (showing a "New content is available; please refresh." message). Showing
-this messages is currently left as an exercise to the developer, but as a
-starting point, you can make use of the logic included in [`src/registerServiceWorker.js`](src/registerServiceWorker.js), which
-demonstrates which service worker lifecycle events to listen for to detect each
-scenario, and which as a default, just logs appropriate messages to the
-JavaScript console.
 
 1. By default, the generated service worker file will not intercept or cache any
 cross-origin traffic, like HTTP [API requests](#integrating-with-an-api-backend),

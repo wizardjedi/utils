@@ -33,8 +33,8 @@ class App extends Component {
         return (
             <div className="App">
                 <HexDump hexdump={this.state.text} />
-
                 <CalcTextArea rows="10" cols="50" text={this.state.text} onChange={this.onChange} />
+                Link to this page:<a href={"#"+this.state.text}>#{this.state.text.length > 20 ? this.state.text.substr(0,20) : this.state.text}</a>
             </div>
         );
     }
