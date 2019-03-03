@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 
 import "./HexDump.css";
-import {Utils} from "../Utils";
+import Utils from "../Utils";
 import {HexDump} from "./HexDump";
 
 export class HexDumpCharactersPanel extends Component {

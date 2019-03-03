@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import {HexDump} from "./HexDump/HexDump";
 import {CalcTextArea} from "./LengthTextArea/CalcTextArea";
-import {Utils} from "./Utils";
+import Utils from "./Utils";
 
 class App extends Component {
     constructor(props) {
