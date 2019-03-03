@@ -1,4 +1,4 @@
-var Utils = {};
+let Utils = {};
 Utils.Text = {};
 Utils.Text.isPrint=function(val) {
 	if (val > 0x20 && val < 0x7f) {
