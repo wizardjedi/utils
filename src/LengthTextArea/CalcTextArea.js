@@ -20,30 +20,31 @@ export class CalcTextArea extends Component {
 
         var target = event.target;
 
-        this.state.timer =
-            setTimeout(
-                function() {
-                    var rawText = target.value;
+        let timer = setTimeout(
+            function() {
+                var rawText = target.value;
 
-                    var hexDump = (rawText != null ? rawText.replace(/[^0-9a-fA-F]/gim, "") : "");
+                var hexDump = (rawText != null ? rawText.replace(/[^0-9a-fA-F]/gim, "") : "");
 
-                    var hexDumpLength = hexDump.length;
+                var hexDumpLength = hexDump.length;
 
-                    if (hexDumpLength % 2 == 0) {
-                        self.setState({textLength: hexDump.length / 2, error: null});
-                    } else {
-                        self.setState({textLength: Math.floor(hexDump.length / 2), error: "Not enough input"});
-                    }
+                if (hexDumpLength % 2 === 0) {
+                    self.setState({textLength: hexDump.length / 2, error: null});
+                } else {
+                    self.setState({textLength: Math.floor(hexDump.length / 2), error: "Not enough input"});
+                }
 
-                    clearTimeout(self.state.timer);
-                    self.state.timer = null;
+                clearTimeout(self.state.timer);
+                self.state.timer = null;
 
-                    if (!!self.props.onChange) {
-                        self.props.onChange(hexDump);
-                    }
-                },
-                500
-            );
+                if (!!self.props.onChange) {
+                    self.props.onChange(hexDump);
+                }
+            },
+            500
+        );
+
+        this.setState(Object.assign({}, this.state, {timer}));
     }
     render() {
         var error;

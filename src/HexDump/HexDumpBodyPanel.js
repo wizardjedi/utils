@@ -33,7 +33,7 @@ export class HexDumpBodyPanel extends Component {
                                 <span
                                     onMouseOver={self.onChangeCursorOffset}
                                     data-offset={el.offset}
-                                    className={self.props.cursorOffset==el.offset ? "selected" : ""}
+                                    className={self.props.cursorOffset===el.offset ? "selected" : ""}
                                     key={el.offset}>{el.text}</span>
                             );
                         }

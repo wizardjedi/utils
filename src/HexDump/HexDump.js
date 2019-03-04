@@ -42,7 +42,11 @@ export class HexDump extends Component {
                 <div className="hex-dump-container">
                     <HexDumpOffsetPanel cursorOffset={this.state.cursorOffset} hexDumpLength={this.props.hexdump.length/2} />
                     <HexDumpBodyPanel onChangeCursorOffset={this.changeCursorOffset} cursorOffset={this.state.cursorOffset} hexdump={this.props.hexdump} />
-                    <HexDumpCharactersPanel cursorOffset={this.state.cursorOffset} onChangeCursorOffset={this.changeCursorOffset} cursorOffset={this.state.cursorOffset} hexdump={this.props.hexdump} />
+                    <HexDumpCharactersPanel
+                        onChangeCursorOffset={this.changeCursorOffset}
+                        cursorOffset={this.state.cursorOffset}
+                        hexdump={this.props.hexdump}
+                    />
 
                     <div className="clearer" />
                 </div>

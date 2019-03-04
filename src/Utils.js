@@ -88,15 +88,16 @@ Utils.Text.Encoding.GSM0338.mapping = [0x40, 0x14, 0x65, 0x28, 0x29, 0x3c, 0x3d,
 Utils.Text.Encoding.GSM0338.escCharacter = 0x1B;
 
 Utils.Text.Encoding.GSM0338.isRepresentable = function(str) {
-	if (str == null || str.length == 0) {
+	if (str === null || str.length === 0) {
 		return true;
 	}
 
-	if (str.length > 1) {
+	/*if (str.length > 1) {
 		for (var i=0;i<str.length;i++) {
 			var res = Utils.Text.Encoding.GSM0338.isRepresentable(str.charCodeAt());
 		}
-	}
+	}*/
+	return false;
 };
 
 Utils.Text.Encoding.GSM0338.isCharRepresentable = function(character) {

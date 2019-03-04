@@ -2,7 +2,6 @@ import React,{Component} from 'react';
 
 import "./HexDump.css";
 import Utils from "../Utils";
-import {HexDump} from "./HexDump";
 
 export class HexDumpCharactersPanel extends Component {
     constructor(props) {
@@ -38,7 +37,7 @@ export class HexDumpCharactersPanel extends Component {
                             return (
                                 <span
                                     onMouseOver={self.onChangeCursorOffset}
-                                    className={self.props.cursorOffset==idx ? "selected" : ""}
+                                    className={self.props.cursorOffset===idx ? "selected" : ""}
                                     key={idx}
                                     data-offset={idx}>{C}</span>
                             );
