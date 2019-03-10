@@ -22,6 +22,31 @@ class Menu extends Component {
                             Smpp-decoder
                         </NavLink>
                     </li>
+                    <li className="nav-item">
+                        <NavLink className="nav-link" activeClassName="active" to={ROUTES.PATH_ENCODING}>
+                            encodings
+                        </NavLink>
+                    </li>
+                    <li className="nav-item">
+                        <NavLink className="nav-link" activeClassName="active" to={ROUTES.PATH_ENCODING_GSM}>
+                            Gsm encoding
+                        </NavLink>
+                    </li>
+                    <li className="nav-item">
+                        <NavLink className="nav-link" activeClassName="active" to={ROUTES.PATH_ENCODING_LATIN1}>
+                            Latin-1 encoding
+                        </NavLink>
+                    </li>
+                    <li className="nav-item">
+                        <NavLink className="nav-link" activeClassName="active" to={ROUTES.PATH_ENCODING_ASCII}>
+                            Ascii encoding
+                        </NavLink>
+                    </li>
+                    <li className="nav-item">
+                        <NavLink className="nav-link" activeClassName="active" to={ROUTES.PATH_ENCODING_UCS2}>
+                            Ucs2 encoding
+                        </NavLink>
+                    </li>
                 </ul>
             </div>
         );

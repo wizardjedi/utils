@@ -1,8 +1,10 @@
 import React,{Component} from 'react';
+import PropTypes from 'prop-types';
 
 export class CalcTextArea extends Component {
     constructor(props) {
         super(props);
+
         this.state = {
             textLength: null,
             error:null,
@@ -16,9 +18,9 @@ export class CalcTextArea extends Component {
             return ;
         }
 
-        var self = this;
+        let self = this;
 
-        var target = event.target;
+        let target = event.target;
 
         let timer = setTimeout(
             function() {
@@ -49,13 +51,21 @@ export class CalcTextArea extends Component {
     render() {
         var error;
 
-        if (this.state.error != null) {
+        if (this.state !=null && this.state.error != null) {
             error = (<span className='error'>{this.state.error}</span>);
         }
 
         return (
-            <div>
-                <textarea defaultValue={this.props.text} rows={this.props.rows} cols={this.props.cols} onChange={this.onChange} onKeyUp={this.onChange}></textarea><br />
+            <div className={this.props.className}>
+                <textarea
+                    defaultValue={this.props.text}
+                    rows={this.props.rows}
+                    placeholder={this.props.placeholder}
+                    cols={this.props.cols}
+                    onChange={this.onChange}
+                    onKeyUp={this.onChange}
+                    style={this.props.style}
+                /><br />
                 <span>Length: {this.state.textLength}</span>
                 <br />
                 {error}
@@ -63,3 +73,11 @@ export class CalcTextArea extends Component {
         );
     }
 }
+
+CalcTextArea.propTypes = {
+    text: PropTypes.string.isRequired,
+    onChange: PropTypes.func.isRequired,
+    placeholder: PropTypes.string,
+    rows: PropTypes.number,
+    cols: PropTypes.number
+};

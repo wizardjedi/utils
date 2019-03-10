@@ -157,7 +157,7 @@ Utils.Bytes = {};
 
 Utils.Bytes.readLong=function(array) {
 	var res = 0;
-	for (var i=0;i<4;i++) {
+	for (let i=0;i<4;i++) {
 		res = (res << 8) + array[i];
 	}
 	

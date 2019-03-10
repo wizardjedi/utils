@@ -1,0 +1,21 @@
+.simple-hex-dump, .simple-hex-dump-offset-panel, .simple-hex-dump-body-panel, .simple-hex-dump-characters-panel {
+    background-color: #e5e5e5;
+}
+
+.simple-hex-dump-offset-panel code,
+.simple-hex-dump-body-panel code,
+.simple-hex-dump-characters-panel code
+{
+    white-space: nowrap;
+    color: #000;
+}
+
+.a1s-simple-hex-dump {
+    border:1px solid #e5e5e5;
+}
+
+.a1s-simple-hex-dump-btn-xs {
+    padding: 1px;
+    font-size: 8px;
+    margin: 0px 1px;
+}

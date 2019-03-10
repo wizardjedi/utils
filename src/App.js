@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
 import './App.css';
 import Utils from "./Utils";
-import {BrowserRouter as Router} from 'react-router-dom';
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import Menu from "./components/Menu";
 import SmppDecoderPage from "./pages/SmppDecoderPage";
+import * as ROUTES from "./routes";
+import HomePage from "./pages/HomePage";
+import HexDumpPage from "./pages/HexDumpPage";
+import {encodingParameterizedPage} from "./pages/EncodingsPage";
+import TestHexDumpPage from "./pages/test/TestHexDumpPage";
 
 class App extends Component {
     constructor(props) {
@@ -39,25 +44,22 @@ class App extends Component {
                             <Menu />
                         </nav>
 
-
                         <main role="main" className="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4 h-100">
-                            {/*
                             <Switch>
                                 <Route exact path={ROUTES.PATH_HOME} component={HomePage} />
                                 <Route path={ROUTES.PATH_HEX_DUMP} component={HexDumpPage} />
                                 <Route path={ROUTES.PATH_SMPP_DECODE} component={SmppDecoderPage} />
+
+                                <Route
+                                    path={ROUTES.PATH_ENCODING + "/:encodingName"}
+                                    component={encodingParameterizedPage}
+                                />
+
+                                <Route
+                                    path="/test/hexdump"
+                                    component={TestHexDumpPage}
+                                />
                             </Switch>
-
-
-                            <h1>Hex-to-code</h1>
-
-                            <HexDump hexdump={this.state.text} />
-                            <CalcTextArea rows="10" cols="50" text={this.state.text} onChange={this.onChange} />
-                            Link to this page:<a href={"#"+this.state.text}>#{this.state.text.length > 20 ? this.state.text.substr(0,20) : this.state.text}</a>
-                            */ }
-                            <h1>Enter smpp dump here</h1>
-                            <SmppDecoderPage />
-
                         </main>
                     </div>
                 </div>

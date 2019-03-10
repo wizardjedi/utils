@@ -1,54 +1,142 @@
-import React, {Component} from 'react';
-import SmppParser from 'ut-codec-smpp';
-import Utils from '../Utils';
+import React, {Component, Fragment} from 'react';
+import SmppDecoder from 'js-smpp';
+import SimpleHexDump from "../HexDump/SimpleHexDump";
 
 class SmppDecoderPage extends Component {
     constructor(props){
         super(props);
 
-        this.state = {value:"",result:null, meta: null};
+        let state = {value:null,buffer:null,result:null, meta: null};
+
+        if (window.location.hash !== null ) {
+            let hash = window.location.hash.substr(1);
+
+            let buf = Buffer.from(atob(hash));
+
+            state = this.doDecode(buf.toString("hex"));
+        }
+
+        this.state = state;
+
+        this.change = this.change.bind(this);
     }
     render() {
         let decodedData = null;
+        let notifications = null;
 
         if (this.state.result !== null) {
             decodedData =
                 Object
-                    .keys(this.state.result.body)
+                    .keys(this.state.result.data)
                     .map(
                         (key) => {
-                            if (key === "tlvs") {
-                                return (<tr key="tlvs"><td colSpan="2">TLV</td></tr>);
-                            }
+                            let decodedField = this.state.result.data[key];
 
-                            return (<tr key={key}><td>{key}</td><td>{this.state.result.body[key]}</td></tr>);
+                            return (<tr key={decodedField.name}>
+                                <td>
+                                    <span className="text-xs">no</span>
+                                </td>
+                                <td>
+                                    {decodedField.name}
+                                    {
+                                        typeof decodedField.specRef !== "undefined"
+                                        && decodedField.specRef!=="" && <div>ref: <span className="text-sm">{decodedField.specRef}</span></div>
+                                    }
+                                </td>
+                                <td>
+                                    <SimpleHexDump
+                                        hexdump={decodedField.buffer}
+                                        showOffset={false}
+                                        showCharacters={false}
+                                    />
+                                </td>
+                                <td>{decodedField.value.raw}</td>
+                                <td></td>
+                            </tr>);
                         }
+                    );
+
+            notifications =
+                this
+                    .state
+                    .result
+                    .notifications
+                    .getAll()
+                    .map(
+                        ({tag, body, offset}) => <li>{body} at offset:{offset}</li>
                     );
         }
 
+        console.log("Result", this.state.result);
+
         return (
             <div>
-                <textarea rows="20" cols="60" value={this.state.value} onChange={(e)=>this.change(e.target.value)} />
+                <h1>PDU Hex dump</h1>
+                <textarea
+                    style={{width:"100%"}}
+                    rows={8}
+                    placeholder="Введите HEX-dump SMPP PDU"
+                    defaultValue={this.state.value}
+                    onChange={this.change}
+                />
+                <div>
+                    <a href={window.location}>Link to this page</a>
+                </div>
+                {
+                    this.state.buffer &&
+                    <Fragment>
+                        <h1>Hex dump representation</h1>
+                        <SimpleHexDump hexdump={this.state.buffer} groups={this.state.result.data} />
+                    </Fragment>
+                }
+
+                <h1>Decoded data</h1>
                 {decodedData !== null &&
-                <table><tbody>{decodedData}</tbody></table>}
+                    <Fragment>
+                        <ol>{notifications}</ol>
+                        <table className="table table-stripped">
+                            <thead>
+                                <tr>
+                                    <th title="Validation">Val</th>
+                                    <th title="Field name and specification reference">Field</th>
+                                    <th title="Hex dump representation">Hex</th>
+                                    <th title="Interpreted value">Value</th>
+                                    <th title="Comment">Comment</th>
+                                </tr>
+                            </thead>
+                            <tbody>{decodedData}</tbody>
+                        </table>
+                    </Fragment>
+
+                }
             </div>
         );
     }
-    change(value) {
-        let parser = new SmppParser({});
+    doDecode(value) {
+        let decoder = new SmppDecoder();
 
-        let intArr =
-            Utils
-                .Text
-                .hexToIntArray(
-                    "000000040000000000000001" + value.replace("~\\s*~gi","").trim()
-                );
+        value = value.replace("~[^0-9a-fA-F]~gim", "").trim();
 
-        let meta = {};
-        
-        let result = parser.decode(new Buffer(intArr), meta);
+        if (value.length % 2 === 0) {
+            let buffer = Buffer.from(value, "hex");
 
-        this.setState({value, result, meta});
+            try {
+                let result =
+                    decoder
+                        .decode(buffer, true, "SUBMIT_SM");
+
+                return ({value, buffer, result});
+            } catch (e) {
+                return ({value, buffer:null, result: null});
+            }
+        }
+    }
+    change(e) {
+        let state = this.doDecode(e.target.value);
+
+        window.location.hash = btoa(state.buffer.toString());
+
+        this.setState(state);
     }
 }
 

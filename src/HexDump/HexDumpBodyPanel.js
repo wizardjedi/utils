@@ -26,9 +26,10 @@ export class HexDumpBodyPanel extends Component {
 
         return (
             <div className="hex-dump-body-panel">
+                <pre>
                 {items
                     .map(
-                        function(el) {
+                        function(el, idx) {
                             return (
                                 <span
                                     onMouseOver={self.onChangeCursorOffset}
@@ -39,6 +40,7 @@ export class HexDumpBodyPanel extends Component {
                         }
                     )
                 }
+                </pre>
             </div>
         );
     }
