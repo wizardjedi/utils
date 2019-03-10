@@ -18,5 +18,9 @@ self.__precacheManifest = [
   {
     "revision": "13241f0467411c19e0a3dee26ff87ab5",
     "url": "/utils/index.html"
+  },
+  {
+    "revision": "13241f0467411c19e0a3dee26ff87ab5",
+    "url": "/utils/404.html"
   }
 ];
