@@ -123,23 +123,21 @@ class SimpleHexDump extends Component {
         return <div className="simple-hex-dump-characters-panel"><code dangerouslySetInnerHTML={{__html: dump.join("")}} /></div>;
     }
     startGroup(offset, array) {
-        if (typeof this.props.groups === "undefined" || this.props.groups.length == 0) {
+        if (typeof this.props.groups === "undefined" || this.props.groups.length === 0) {
             return ;
         }
         for (let i in this.props.groups) {
             let curGroup = this.props.groups[i];
 
             if (curGroup.offset === offset) {
-                this.currentGroup++;
-
-                array.push("<span class=\"color-group"+this.currentGroup+"\" title=\""+curGroup.name+"\">");
+                array.push("<span class=\"color-group"+this.nextGroup()+"\" title=\""+curGroup.name+"\">");
 
                 break;
             }
         }
     }
     endGroup(offset, array) {
-        if (typeof this.props.groups === "undefined" || this.props.groups.length == 0) {
+        if (typeof this.props.groups === "undefined" || this.props.groups.length === 0) {
             return ;
         }
         for (let i in this.props.groups) {
@@ -150,6 +148,15 @@ class SimpleHexDump extends Component {
                 break;
             }
         }
+    }
+    nextGroup() {
+        if (this.currentGroup >= 20) {
+            this.currentGroup = 1;
+        } else {
+            this.currentGroup++;
+        }
+
+        return this.currentGroup;
     }
     render() {
         this.currentGroup=0;

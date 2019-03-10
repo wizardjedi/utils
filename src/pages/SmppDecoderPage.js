@@ -8,6 +8,8 @@ class SmppDecoderPage extends Component {
 
         let state = {value:null,buffer:null,result:null, meta: null};
 
+        this.currentGroup = 0;
+
         if (window.location.hash !== null ) {
             let hash = window.location.hash.substr(1);
 
@@ -25,6 +27,10 @@ class SmppDecoderPage extends Component {
         let notifications = null;
 
         if (this.state.result !== null) {
+            this.currentGroup = 0;
+
+            let self = this;
+
             decodedData =
                 Object
                     .keys(this.state.result.data)
@@ -32,7 +38,7 @@ class SmppDecoderPage extends Component {
                         (key) => {
                             let decodedField = this.state.result.data[key];
 
-                            return (<tr key={decodedField.name}>
+                            return (<tr key={decodedField.name} className={"color-group" + self.nextGroup()}>
                                 <td>
                                     <span className="text-xs">no</span>
                                 </td>
@@ -63,11 +69,9 @@ class SmppDecoderPage extends Component {
                     .notifications
                     .getAll()
                     .map(
-                        ({tag, body, offset}) => <li>{body} at offset:{offset}</li>
+                        ({tag, body, offset}) => <li key={"notification"+offset}>{body} at offset:{offset}</li>
                     );
         }
-
-        console.log("Result", this.state.result);
 
         return (
             <div>
@@ -91,6 +95,11 @@ class SmppDecoderPage extends Component {
                 }
 
                 <h1>Decoded data</h1>
+                <label>
+                    <input
+                        type="checkbox"
+                    />Добавить цветовое разделение полей
+                </label>
                 {decodedData !== null &&
                     <Fragment>
                         <ol>{notifications}</ol>
@@ -111,6 +120,15 @@ class SmppDecoderPage extends Component {
                 }
             </div>
         );
+    }
+    nextGroup() {
+        if (this.currentGroup >= 20) {
+            this.currentGroup = 1;
+        } else {
+            this.currentGroup++;
+        }
+
+        return this.currentGroup;
     }
     doDecode(value) {
         let decoder = new SmppDecoder();
@@ -134,7 +152,9 @@ class SmppDecoderPage extends Component {
     change(e) {
         let state = this.doDecode(e.target.value);
 
-        window.location.hash = btoa(state.buffer.toString());
+        if (state.buffer !== null) {
+            window.location.hash = btoa(state.buffer.toString());
+        }
 
         this.setState(state);
     }
