@@ -8,7 +8,7 @@ class Menu extends Component {
             <div className="sidebar-sticky">
                 <ul className="nav flex-column">
                     <li className="nav-item">
-                        <NavLink className="nav-link" activeClassName="active" to={ROUTES.PATH_HOME}>
+                        <NavLink className="nav-link" activeClassName="active" exact={true} to={ROUTES.PATH_HOME}>
                             Главная
                         </NavLink>
                     </li>

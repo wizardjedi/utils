@@ -13,7 +13,7 @@ class EncodingsPage extends Component {
 }
 
 function Row(params) {
-    console.log(arguments);
+    //console.log(arguments);
 
     return <div>Ok {params.from} to {params.to}</div>;
 }

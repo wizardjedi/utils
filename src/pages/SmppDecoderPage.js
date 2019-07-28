@@ -1,26 +1,60 @@
 import React, {Component, Fragment} from 'react';
 import SmppDecoder from 'js-smpp';
 import SimpleHexDump from "../HexDump/SimpleHexDump";
+import { Base64 } from 'js-base64';
 
 class SmppDecoderPage extends Component {
     constructor(props){
         super(props);
 
-        let state = {value:null,buffer:null,result:null, meta: null};
+        let state = {
+            value:null,
+            buffer:null,
+            result:null,
+            meta: null,
+            settings:{
+                dissectingFieldsColors:false
+            }
+        };
 
         this.currentGroup = 0;
+
+        let decodeState = {};
 
         if (window.location.hash !== null ) {
             let hash = window.location.hash.substr(1);
 
-            let buf = Buffer.from(atob(hash));
+            //let buf = Buffer.from(atob(hash),"hex");
+            let buf = Buffer.from(hash, "hex");
 
-            state = this.doDecode(buf.toString("hex"));
+            decodeState = this.doDecode(buf.toString("hex"));
         }
 
-        this.state = state;
+        this.state = Object.assign({}, state, decodeState);
 
         this.change = this.change.bind(this);
+
+        this.changeSettings = this.changeSettings.bind(this);
+    }
+    changeSettings(key, value) {
+        let oldState = this.state;
+
+        oldState.settings[key] = value;
+
+        this.setState(Object.assign({}, oldState));
+    }
+    renderFieldValue(value) {
+        if (typeof value === "object") {
+            let result = [];
+
+            for (let i in value) {
+                result.push(<><dt>{i}</dt><dd>{value[i]}</dd></>);
+            }
+
+            return result;
+        } else {
+            return <>{value}</>;
+        }
     }
     render() {
         let decodedData = null;
@@ -37,17 +71,24 @@ class SmppDecoderPage extends Component {
                     .map(
                         (key) => {
                             let decodedField = this.state.result.data[key];
+                            let className = "";
 
-                            return (<tr key={decodedField.name} className={"color-group" + self.nextGroup()}>
+                            if (self.state.settings.dissectingFieldsColors) {
+                                className = "color-group" + self.nextGroup();
+                            }
+
+                            return (<tr key={decodedField.name} className={className}>
                                 <td>
                                     <span className="text-xs">no</span>
                                 </td>
                                 <td>
-                                    {decodedField.name}
+                                    <div>{decodedField.name}</div>
                                     {
                                         typeof decodedField.specRef !== "undefined"
-                                        && decodedField.specRef!=="" && <div>ref: <span className="text-sm">{decodedField.specRef}</span></div>
+                                        && decodedField.specRef!=="" && <div><small>ref: <span>{decodedField.specRef}</span></small></div>
                                     }
+                                    <small>Offset: {decodedField.offset}</small>&nbsp;
+                                    <small>Length: {decodedField.length}</small>
                                 </td>
                                 <td>
                                     <SimpleHexDump
@@ -56,7 +97,7 @@ class SmppDecoderPage extends Component {
                                         showCharacters={false}
                                     />
                                 </td>
-                                <td>{decodedField.value.raw}</td>
+                                <td>{this.renderFieldValue(decodedField.value.interpreted)}</td>
                                 <td></td>
                             </tr>);
                         }
@@ -98,12 +139,14 @@ class SmppDecoderPage extends Component {
                 <label>
                     <input
                         type="checkbox"
+                        value={this.state.settings.dissectingFieldsColors}
+                        onChange={(e)=>this.changeSettings("dissectingFieldsColors", e.target.checked)}
                     />Добавить цветовое разделение полей
                 </label>
                 {decodedData !== null &&
                     <Fragment>
                         <ol>{notifications}</ol>
-                        <table className="table table-stripped">
+                        <table className="table table-stripped table-sm">
                             <thead>
                                 <tr>
                                     <th title="Validation">Val</th>
@@ -153,10 +196,11 @@ class SmppDecoderPage extends Component {
         let state = this.doDecode(e.target.value);
 
         if (state.buffer !== null) {
-            window.location.hash = btoa(state.buffer.toString());
+            ///window.location.hash = btoa(state.buffer.toString("hex"));
+            window.location.hash = state.buffer.toString("hex");
         }
 
-        this.setState(state);
+        this.setState(Object.assign({}, this.state, state));
     }
 }
 

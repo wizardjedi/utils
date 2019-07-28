@@ -2,6 +2,13 @@
     background-color: #e5e5e5;
 }
 
+.simple-hex-dump-offset-panel,
+.simple-hex-dump-body-panel,
+.simple-hex-dump-characters-panel {
+    line-height: 13px;
+    font-size: 17px;
+}
+
 .simple-hex-dump-offset-panel code,
 .simple-hex-dump-body-panel code,
 .simple-hex-dump-characters-panel code
